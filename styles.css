@@ -658,7 +658,9 @@ tbody td { padding: 16px; border-top: 1px solid rgba(171,176,210,0.26); color: v
 
 .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .field { display: grid; gap: 8px; font-weight: 700; color: var(--text-main); }
-/* 关于页个人资料卡 */
+/* ================================================================
+   23. 关于页 — 个人资料卡 & 时间线条目
+   ================================================================ */
 .profile-banner {
   display: flex; align-items: center; gap: 28px; padding: 32px;
 }
