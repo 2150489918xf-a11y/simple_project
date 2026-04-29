@@ -151,7 +151,7 @@ img, svg { display: block; max-width: 100%; }
   display: flex; align-items: end; justify-content: space-between;
   gap: 16px; padding: 24px 28px 0;
 }
-.section-kicker {
+.section-kicker, .eyebrow {
   margin: 0 0 4px; color: var(--accent);
   font-size: 0.78rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
 }
@@ -380,26 +380,16 @@ img, svg { display: block; max-width: 100%; }
 .page-main .panel, .page-main .page-card, .page-main .form-card,
 .page-main .contact-card, .page-main .profile-card, .page-main .section-panel { padding: 24px 28px; }
 
-.section-panel h2, .profile-card h2, .contact-card h2, .form-card h2, .page-card h2 { margin: 0 0 12px; }
-
-.section-stack, .aside-stack, .resume-stack, .profile-stack,
-.contact-stack, .form-stack, .project-stack { display: grid; gap: 22px; }
-
 .page-hero { padding: 24px 28px 28px; }
 .page-hero p { margin-top: 10px; }
 
-.summary-grid, .card-grid, .form-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-.project-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-
-.article-card h3, .project-card h3, .page-card h3, .contact-card h3, .form-card h3 { margin: 12px 0 10px; line-height: 1.4; }
-.article-card p, .project-card p, .page-card p, .contact-card p, .form-card p,
-.series-nav p, .article-outline p, .page-hero p, .intro-copy p, .resume-copy p { margin: 0; color: var(--text-soft); }
+.article-card h3 { margin: 12px 0 10px; line-height: 1.4; }
+.article-card p, .series-nav p, .article-outline p, .page-hero p { margin: 0; color: var(--text-soft); }
 
 /* === 列表/链接 === */
-.tag-row, .inline-list, .quick-link-list, .toc-list, .series-links, .status-list {
+.quick-link-list, .toc-list, .series-links, .status-list {
   list-style: none; margin: 0; padding: 0;
 }
-.tag-row { display: flex; flex-wrap: wrap; gap: 10px; }
 .quick-link-list, .toc-list, .series-links, .status-list { display: grid; gap: 12px; }
 .quick-link-list a, .toc-list a, .series-links a {
   display: block; padding: 12px 14px; border-radius: 14px;
@@ -440,8 +430,8 @@ img, svg { display: block; max-width: 100%; }
 }
 .aside-card-title { margin: 0 0 14px; font-size: 1rem; }
 
-.info-list, .contact-list, .timeline-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-.info-list li, .contact-list li, .timeline-list li, .status-list li {
+.timeline-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.timeline-list li, .status-list li {
   padding: 14px 16px; border-radius: 16px; background: rgba(255,255,255,0.7);
 }
 
@@ -463,12 +453,14 @@ tbody td { padding: 16px; border-top: 1px solid rgba(171,176,210,0.26); color: v
 .form-card form, .contact-card form { display: grid; gap: 18px; }
 .form-row { display: grid; gap: 8px; }
 .form-row label, .fieldset-title { font-weight: 700; color: var(--text-main); }
-.form-row input, .form-row select, .form-row textarea {
+.form-row input, .form-row select, .form-row textarea,
+.field input, .field textarea, .field select {
   width: 100%; padding: 14px 16px; border-radius: 16px;
   border: 1px solid rgba(164,171,206,0.34); background: rgba(255,255,255,0.82); color: var(--text-main);
 }
-.form-row textarea { min-height: 140px; resize: vertical; }
-.form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+.form-row textarea, .field textarea { min-height: 140px; resize: vertical; }
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus,
+.field input:focus, .field textarea:focus, .field select:focus {
   outline: 2px solid rgba(91,98,232,0.24); border-color: rgba(91,98,232,0.42);
 }
 .checkbox-group, .radio-group { display: flex; flex-wrap: wrap; gap: 12px 18px; }
@@ -483,24 +475,6 @@ tbody td { padding: 16px; border-top: 1px solid rgba(171,176,210,0.26); color: v
 .field-error { color: var(--accent); font-size: 0.84rem; }
 
 .message-list { display: grid; gap: 16px; margin-top: 18px; }
-.message-item { padding: 18px 20px; border-radius: 18px; background: rgba(255,255,255,0.7); }
-.message-item h3 { margin: 0 0 6px; }
-.message-item time { color: var(--text-muted); font-size: 0.86rem; }
-.inline-highlight { color: var(--accent); font-weight: 700; }
-
-.article-filter-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-.empty-state { padding: 22px; border-radius: 18px; background: rgba(255,255,255,0.7); color: var(--text-soft); }
-
-.project-showcase { margin-top: 22px; }
-.project-showcase .project-grid { margin-top: 18px; }
-
-.project-card {
-  padding: 20px; background: rgba(255,255,255,0.5);
-  border: 1px solid rgba(255,255,255,0.35); border-radius: 14px;
-}
-.project-card h3 { margin: 10px 0; font-size: 1.22rem; }
-.project-card p { margin: 0; line-height: 1.6; }
-.project-meta { margin-top: 14px; color: var(--text-muted); font-size: 0.88rem; }
 
 /* === 页脚 === */
 .site-footer { padding: 0 0 32px; }
@@ -608,11 +582,6 @@ tbody td { padding: 16px; border-top: 1px solid rgba(171,176,210,0.26); color: v
 /* === 子页面通用补充 === */
 .content-stack { display: grid; gap: 22px; }
 
-.eyebrow {
-  margin: 0 0 4px; color: var(--accent);
-  font-size: 0.78rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
-}
-
 .prose { color: var(--text-soft); line-height: 1.8; }
 .prose p { margin: 8px 0; }
 .prose p:first-child { margin-top: 0; }
@@ -645,16 +614,6 @@ tbody td { padding: 16px; border-top: 1px solid rgba(171,176,210,0.26); color: v
 
 .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .field { display: grid; gap: 8px; font-weight: 700; color: var(--text-main); }
-.field input, .field textarea, .field select {
-  width: 100%; padding: 14px 16px; border-radius: 16px;
-  border: 1px solid rgba(164,171,206,0.34); background: rgba(255,255,255,0.82);
-  color: var(--text-main); font: inherit;
-}
-.field textarea { min-height: 140px; resize: vertical; }
-.field input:focus, .field textarea:focus, .field select:focus {
-  outline: 2px solid rgba(91,98,232,0.24); border-color: rgba(91,98,232,0.42);
-}
-
 /* 关于页个人资料卡 */
 .profile-banner {
   display: flex; align-items: center; gap: 28px; padding: 32px;
@@ -685,7 +644,7 @@ tbody td { padding: 16px; border-top: 1px solid rgba(171,176,210,0.26); color: v
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .bg-animated, .shape { animation: none; }
+  .bg-animated { animation: none; }
   .panel, .article-card, .carousel-slide, .back-to-top,
   .author-cover img, .avatar-art, .article-cover img { transition: none; }
 }

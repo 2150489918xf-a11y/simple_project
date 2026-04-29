@@ -217,14 +217,14 @@ function markCurrentPage() {
 }
 
 function buildArticleCover(article, index) {
-  // 根据分类映射图片，增强相关性
   const categoryMap = {
-    'AI 研究': 'images/cover3.png',
-    'AI 开发': 'images/cover4.png',
-    '后端开发': 'images/cover2.png',
     '课程设计': 'images/cover1.png',
+    '布局实验': 'images/cover2.png',
     '学习路线': 'images/cover5.png',
-    '数据展示': 'images/cover6.png'
+    '数据展示': 'images/cover6.png',
+    '资源整理': 'images/cover3.png',
+    '项目展示': 'images/cover4.png',
+    'AI 探索':   'images/cover3.png'
   };
   
   if (categoryMap[article.category]) {
@@ -267,10 +267,6 @@ function renderCards(containerIds, catalog) {
     if (container) container.innerHTML = catalog.map(createCard).join("");
   });
 }
-
-function renderHomeArticles() { renderCards(["articleList"], articleCatalog); }
-function renderArticleCatalog() { renderCards(["articleCatalogList"], articleCatalog); }
-function renderProjectCards() { renderCards(["projectList", "projectCatalogGrid"], projectCatalog); }
 
 function renderFriendLinks() {
   const container = document.getElementById("friendLinks");
@@ -534,37 +530,14 @@ function validateForm(form) {
     const bio = getValue("bio");
     const interests = Array.from(form.querySelectorAll('input[name="interests"]:checked')).map((item) => item.value);
 
-    if (nickname.length < 2) {
-      setError(form, "nickname", "昵称至少 2 个字。");
-      valid = false;
-    }
-    if (!/^\d{8,12}$/.test(studentId)) {
-      setError(form, "studentId", "学号应为 8 到 12 位数字。");
-      valid = false;
-    }
-    if (password.length < 6) {
-      setError(form, "password", "密码至少 6 位。");
-      valid = false;
-    }
-    if (!major) {
-      setError(form, "major", "请选择主修方向。");
-      valid = false;
-    }
-    if (!gender) {
-      setError(form, "gender", "请选择性别。");
-      valid = false;
-    }
-    if (interests.length === 0) {
-      setError(form, "interests", "至少勾选一个兴趣方向。");
-      valid = false;
-    }
-    if (bio.length < 20) {
-      setError(form, "bio", "自我介绍不少于 20 个字。");
-      valid = false;
-    }
+    if (nickname.length < 2) { setError(form, "nickname", "昵称至少 2 个字。"); valid = false; }
+    if (!/^\d{8,12}$/.test(studentId)) { setError(form, "studentId", "学号应为 8 到 12 位数字。"); valid = false; }
+    if (password.length < 6) { setError(form, "password", "密码至少 6 位。"); valid = false; }
+    if (!major) { setError(form, "major", "请选择主修方向。"); valid = false; }
+    if (!gender) { setError(form, "gender", "请选择性别。"); valid = false; }
+    if (interests.length === 0) { setError(form, "interests", "至少勾选一个兴趣方向。"); valid = false; }
+    if (bio.length < 20) { setError(form, "bio", "自我介绍不少于 20 个字。"); valid = false; }
   }
-
-  
 
   if (type === "contact") {
     const name = getValue("name");
@@ -599,8 +572,6 @@ function buildMessage(form) {
       time: now,
     };
   }
-
-  
 
   return {
     title: `来自 ${data.get("name")} 的留言`,
@@ -645,9 +616,9 @@ function boot() {
   markCurrentPage();
   initClock();
   initBackToTop();
-  renderHomeArticles();
-  renderArticleCatalog();
-  renderProjectCards();
+  renderCards(["articleList"], articleCatalog);
+  renderCards(["articleCatalogList"], articleCatalog);
+  renderCards(["projectList", "projectCatalogGrid"], projectCatalog);
   renderFriendLinks();
   renderSidebarDirectory();
   renderScheduleTable();
