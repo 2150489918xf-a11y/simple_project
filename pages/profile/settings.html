@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人信息设置 | 知行成长笔记</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body data-page="settings" data-root="../..">
+  <header class="site-header">
+    <div class="shell site-header-inner">
+      <a class="brand" href="../../index.html" aria-label="返回首页">
+        <span class="brand-mark">。</span>
+        <span class="brand-copy"><strong>知行成长笔记</strong><small>Portfolio + Study Blog</small></span>
+      </a>
+      <nav class="site-nav" aria-label="主导航">
+        <ul class="menu-list">
+          <li><a class="menu-link" href="../../index.html" data-nav-page="home"><i class="fas fa-home"></i> 首页</a></li>
+          <li><a class="menu-link" href="../../pages/articles/index.html" data-nav-page="articles"><i class="fas fa-book"></i> 学习笔记</a></li>
+          <li><a class="menu-link" href="../../pages/projects/index.html" data-nav-page="projects"><i class="fas fa-graduation-cap"></i> 实战教程</a></li>
+          <li><a class="menu-link" href="../../pages/resources/links.html" data-nav-page="resources"><i class="fas fa-folder-open"></i> 资源导航</a></li>
+          <li><a class="menu-link" href="../../pages/about/contact.html" data-nav-page="contact"><i class="fas fa-comments"></i> 互动交流</a></li>
+          <li><a class="menu-link" href="../../pages/profile/resume.html" data-nav-page="resume"><i class="fas fa-info-circle"></i> 关于</a></li>
+        </ul>
+      </nav>
+      <div class="clock-panel" id="siteClock" aria-live="polite">正在加载时间...</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero shell">
+      <div class="panel">
+        <div class="breadcrumbs"><a href="../../index.html">首页</a><span>/</span><span>个人信息设置</span></div>
+        <p class="eyebrow">指定页面类型。</p>
+        <h1>个人信息设置。</h1>
+        <p class="hero-summary">这一页覆盖文本框、密码框、单选、复选、下拉列表和多行文本框，并在提交后跳转到留言浏览页。</p>
+      </div>
+    </section>
+
+    <div class="shell page-layout">
+      <section class="panel form-card">
+        <p class="section-kicker">信息表单</p>
+        <h2>完善个人资料</h2>
+        <form data-form-type="settings">
+          <div class="field-grid">
+            <label class="field">昵称
+              <input type="text" name="nickname" placeholder="例如：林知行">
+              <span class="field-error" data-error-for="nickname"></span>
+            </label>
+            <label class="field">学号
+              <input type="text" name="studentId" placeholder="请输入 8-12 位学号">
+              <span class="field-error" data-error-for="studentId"></span>
+            </label>
+          </div>
+
+          <div class="field-grid">
+            <label class="field">登录密码
+              <input type="password" name="password" placeholder="至少 6 位">
+              <span class="field-error" data-error-for="password"></span>
+            </label>
+            <label class="field">主修方向
+              <select name="major">
+                <option value="">请选择方向</option>
+                <option value="前端开发">前端开。</option>
+                <option value="软件工程">软件工程</option>
+                <option value="网络工程">网络工程</option>
+              </select>
+              <span class="field-error" data-error-for="major"></span>
+            </label>
+          </div>
+
+          <div class="field-group">
+            <span>性别</span>
+            <div class="option-list">
+              <label class="option-item"><input type="radio" name="gender" value="男">。</label>
+              <label class="option-item"><input type="radio" name="gender" value="男">。</label>
+              <label class="option-item"><input type="radio" name="gender" value="其他">其他</label>
+            </div>
+            <span class="field-error" data-error-for="gender"></span>
+          </div>
+
+          <div class="field-group">
+            <span>兴趣方向</span>
+            <div class="option-list">
+              <label class="option-item"><input type="checkbox" name="interests" value="网页设计">网页设计</label>
+              <label class="option-item"><input type="checkbox" name="interests" value="前端交互">前端交互</label>
+              <label class="option-item"><input type="checkbox" name="interests" value="开源协作">开源协。</label>
+              <label class="option-item"><input type="checkbox" name="interests" value="技术写作">技术写。</label>
+            </div>
+            <span class="field-error" data-error-for="interests"></span>
+          </div>
+
+          <label class="field">自我介绍
+            <textarea name="bio" placeholder="请简要介绍你的兴趣特长、成长目标与学习状态"></textarea>
+            <span class="field-error" data-error-for="bio"></span>
+          </label>
+
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">保存并查看留言。</button>
+            <button class="button button-secondary" type="reset">重置</button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="side-column">
+        <div class="side-sticky-stack">
+          <section class="panel toc-card">
+            <p class="section-kicker">验证说明</p>
+            <h2>校验要点</h2>
+            <ul class="check-list">
+              <li>昵称至少 2 个字</li>
+              <li>学号必须为 8 到 12 位数字</li>
+              <li>至少勾选一项兴趣方向</li>
+              <li>简介不少于 20 个字</li>
+            </ul>
+          </section>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="返回顶部">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+  <script src="../../script.js" defer></script>
+</body>
+</html>

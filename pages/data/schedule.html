@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表格展示 | 知行成长笔记</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body data-page="data" data-root="../..">
+  <header class="site-header">
+    <div class="shell site-header-inner">
+      <a class="brand" href="../../index.html" aria-label="返回首页">
+        <span class="brand-mark">。</span>
+        <span class="brand-copy">
+          <strong>知行成长笔记</strong>
+          <small>Portfolio + Study Blog</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="主导航">
+        <ul class="menu-list">
+          <li><a class="menu-link" href="../../index.html" data-nav-page="home"><i class="fas fa-home"></i> 首页</a></li>
+          <li><a class="menu-link" href="../../pages/articles/index.html" data-nav-page="articles"><i class="fas fa-book"></i> 学习笔记</a></li>
+          <li><a class="menu-link" href="../../pages/projects/index.html" data-nav-page="projects"><i class="fas fa-graduation-cap"></i> 实战教程</a></li>
+          <li><a class="menu-link" href="../../pages/resources/links.html" data-nav-page="resources"><i class="fas fa-folder-open"></i> 资源导航</a></li>
+          <li><a class="menu-link" href="../../pages/about/contact.html" data-nav-page="contact"><i class="fas fa-comments"></i> 互动交流</a></li>
+          <li><a class="menu-link" href="../../pages/profile/resume.html" data-nav-page="resume"><i class="fas fa-info-circle"></i> 关于</a></li>
+        </ul>
+      </nav>
+      <div class="clock-panel" id="siteClock" aria-live="polite">正在加载时间...</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero shell">
+      <div class="panel">
+        <div class="breadcrumbs"><a href="../../index.html">首页</a><span>/</span><span>表格展示</span></div>
+        <p class="eyebrow">指定页面类型。</p>
+        <h1>学习计划与课程安排表</h1>
+        <p class="hero-summary">该页通过可视化表格展示学习计划、课程安排与完成状态，用于体现信息组织与表格样式能力。</p>
+      </div>
+    </section>
+
+    <div class="shell page-layout">
+      <div class="content-stack">
+        <section class="panel table-card">
+          <p class="section-kicker">表格展示</p>
+          <h2>本周前端学习任务</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>任务</th>
+                  <th>时间安排</th>
+                  <th>目标</th>
+                  <th>状。</th>
+                </tr>
+              </thead>
+              <tbody id="scheduleTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <aside class="side-column">
+        <div class="side-sticky-stack">
+          <section class="panel toc-card">
+            <p class="section-kicker">说明</p>
+            <h2>本页实现要点</h2>
+            <ul class="check-list">
+              <li>表格行由脚本动态渲染</li>
+              <li>状态标签颜色区分明确</li>
+              <li>小屏幕下支持横向滚动</li>
+            </ul>
+          </section>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="返回顶部">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+  <script src="../../script.js" defer></script>
+</body>
+</html>
