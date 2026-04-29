@@ -62,7 +62,7 @@ const projectCatalog = [
     date: "2026-04-27",
     summary: "以个人主页为视觉起点，扩展出文章、项目、表单和资源导航的完整多页站点，是本次课程设计的主项目。",
     path: "pages/projects/index.html",
-    readTime: "进行中",
+    status: "进行中",
     tags: ["HTML", "CSS", "JavaScript"],
   },
   {
@@ -71,7 +71,7 @@ const projectCatalog = [
     date: "2026-04-20",
     summary: "收纳轮播、表单校验、筛选、返回顶部等基础交互逻辑，为课程设计提供可复用的组件。",
     path: "pages/projects/index.html",
-    readTime: "持续积累",
+    status: "持续积累",
     tags: ["DOM", "事件", "本地存储"],
   },
   {
@@ -80,7 +80,7 @@ const projectCatalog = [
     date: "2026-04-15",
     summary: "基于 Claude API 和 LangChain 构建的简单对话式智能体，实现多轮对话和上下文记忆功能。",
     path: "pages/projects/index.html",
-    readTime: "实验阶段",
+    status: "实验阶段",
     tags: ["Claude API", "LangChain", "Prompt"],
   },
   {
@@ -89,7 +89,7 @@ const projectCatalog = [
     date: "2026-04-10",
     summary: "用于展示社团活动、技术分享、课堂项目等校园生活内容，强化站点的内容厚度。",
     path: "pages/projects/index.html",
-    readTime: "内容补充",
+    status: "内容补充",
     tags: ["语义化 HTML", "响应式布局"],
   },
   {
@@ -98,7 +98,7 @@ const projectCatalog = [
     date: "2026-04-06",
     summary: "通过表格可视化学习任务、课程安排和技能掌握度，展示信息组织与样式控制能力。",
     path: "pages/data/schedule.html",
-    readTime: "已完成",
+    status: "已完成",
     tags: ["表格设计", "状态标签"],
   },
   {
@@ -107,35 +107,8 @@ const projectCatalog = [
     date: "2026-03-28",
     summary: "整理提示词工程的核心技巧，包括角色设定、Few-shot、Chain-of-Thought 等常用模式。",
     path: "pages/projects/index.html",
-    readTime: "持续更新",
+    status: "持续更新",
     tags: ["Prompt", "AI", "技巧整理"],
-  },
-];
-
-const friendLinkCatalog = [
-  {
-    title: "MDN Web Docs",
-    desc: "查 HTML、CSS、JavaScript 语法和规范时最稳定的技术参考。",
-    href: "https://developer.mozilla.org/zh-CN/",
-    label: "语法文档",
-  },
-  {
-    title: "菜鸟教程前端专栏",
-    desc: "快速复盘基础概念时很好用，适合课堂知识点回看。",
-    href: "https://www.runoob.com/",
-    label: "入门复习",
-  },
-  {
-    title: "Can I use",
-    desc: "查看浏览器兼容性时的实用工具，方便说明兼容性考虑。",
-    href: "https://caniuse.com/",
-    label: "兼容性",
-  },
-  {
-    title: "GitHub Explore",
-    desc: "观察项目展示方式和 README 结构时可以借鉴的参考来源。",
-    href: "https://github.com/explore",
-    label: "项目参考",
   },
 ];
 
@@ -252,7 +225,7 @@ function createCard(item, index) {
         <div class="article-meta">
           <span><i class="far fa-calendar-alt"></i> ${item.date}</span>
           <span><i class="fas fa-inbox"></i> ${item.category}</span>
-          <span><i class="fas fa-clock"></i> ${item.readTime}</span>
+          <span><i class="fas ${item.status ? 'fa-tasks' : 'fa-clock'}"></i> ${item.status || item.readTime}</span>
         </div>
         <p class="article-summary">${item.summary}</p>
         ${tagHtml}
@@ -266,25 +239,6 @@ function renderCards(containerIds, catalog) {
     const container = document.getElementById(id);
     if (container) container.innerHTML = catalog.map(createCard).join("");
   });
-}
-
-function renderFriendLinks() {
-  const container = document.getElementById("friendLinks");
-  if (!container) {
-    return;
-  }
-
-  container.innerHTML = friendLinkCatalog
-    .map(
-      (item) => `
-        <a class="friend-link" href="${item.href}" target="_blank" rel="noreferrer noopener">
-          <span>${item.label}</span>
-          <strong>${item.title}</strong>
-          <p>${item.desc}</p>
-        </a>
-      `,
-    )
-    .join("");
 }
 
 function countValues(values) {
@@ -601,25 +555,13 @@ function initForms() {
   });
 }
 
-function initAmbientBackground() {
-  let background = document.querySelector(".bg-animated");
-  if (!background) {
-    background = document.createElement("div");
-    background.className = "bg-animated";
-    document.body.prepend(background);
-  }
-  background.setAttribute("aria-hidden", "true");
-}
-
 function boot() {
-  initAmbientBackground();
   markCurrentPage();
   initClock();
   initBackToTop();
   renderCards(["articleList"], articleCatalog);
   renderCards(["articleCatalogList"], articleCatalog);
   renderCards(["projectList", "projectCatalogGrid"], projectCatalog);
-  renderFriendLinks();
   renderSidebarDirectory();
   renderScheduleTable();
   renderMessages();

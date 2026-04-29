@@ -108,8 +108,7 @@ img, svg { display: block; max-width: 100%; }
 .home-main, .page-main { padding: 30px 0 48px; }
 
 .home-stage, .page-layout,
-.summary-grid, .card-grid, .form-grid,
-.project-grid, .friend-link-grid, .article-list {
+.summary-grid, .card-grid, .form-grid, .article-list {
   display: grid; gap: 22px;
 }
 
@@ -250,7 +249,7 @@ img, svg { display: block; max-width: 100%; }
 .carousel-content p { margin: 0; color: var(--text-soft); }
 
 .carousel-controls { display: flex; align-items: center; justify-content: flex-end; gap: 14px; padding: 20px 24px 0; }
-.carousel-button, .dot, .chip, .chip-button { border: 0; }
+.carousel-button, .dot, .chip { border: 0; }
 .carousel-button {
   width: 42px; height: 42px; border-radius: 50%;
   background: rgba(255,255,255,0.88); color: var(--accent);
@@ -299,14 +298,13 @@ img, svg { display: block; max-width: 100%; }
   font-size: 0.78rem; font-weight: 700;
 }
 
-.chip, .chip-button {
+.chip {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 30px; padding: 0 12px; border-radius: 999px;
   background: rgba(221,75,71,0.1); color: var(--accent);
   font-size: 0.82rem; font-weight: 700;
 }
-.chip-button { cursor: pointer; background: rgba(91,98,232,0.08); color: var(--text-soft); }
-.chip-button.is-active, .chip.is-active { background: var(--accent); color: #fff; }
+.chip.is-active { background: var(--accent); color: #fff; }
 
 /* === 侧边栏目录卡片 === */
 .side-widget { padding: 22px; }
@@ -391,7 +389,6 @@ img, svg { display: block; max-width: 100%; }
   list-style: none; margin: 0; padding: 0; display: grid; gap: 12px;
 }
 
-.friend-link-grid { padding: 18px 0 0; gap: 0; }
 .friend-link {
   display: block; padding: 16px 0;
   border-bottom: 1px dashed rgba(155,160,198,0.38);
@@ -452,8 +449,8 @@ tbody td { padding: 16px; border-top: 1px solid rgba(171,176,210,0.26); color: v
 .field input:focus, .field textarea:focus, .field select:focus {
   outline: 2px solid rgba(91,98,232,0.24); border-color: rgba(91,98,232,0.42);
 }
-.checkbox-group, .radio-group { display: flex; flex-wrap: wrap; gap: 12px 18px; }
-.check-item, .radio-item { display: inline-flex; align-items: center; gap: 8px; color: var(--text-soft); }
+.radio-group { display: flex; flex-wrap: wrap; gap: 12px 18px; }
+.radio-item { display: inline-flex; align-items: center; gap: 8px; color: var(--text-soft); }
 
 .form-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .button-primary, .button-secondary {
@@ -515,7 +512,7 @@ tbody td { padding: 16px; border-top: 1px solid rgba(171,176,210,0.26); color: v
 
 /* === 响应式 === */
 @media (max-width: 1100px) {
-  .note-grid, .summary-grid, .card-grid, .form-grid, .project-grid {
+  .note-grid, .summary-grid, .card-grid, .form-grid {
     grid-template-columns: repeat(2, minmax(0,1fr));
   }
   .carousel-track { min-height: 560px; }
@@ -551,7 +548,7 @@ tbody td { padding: 16px; border-top: 1px solid rgba(171,176,210,0.26); color: v
   .page-main .contact-card, .page-main .profile-card, .page-main .section-panel {
     padding-left: 22px; padding-right: 22px;
   }
-  .note-grid, .summary-grid, .card-grid, .form-grid, .project-grid, .profile-hero-stats {
+  .note-grid, .summary-grid, .card-grid, .form-grid, .profile-hero-stats {
     grid-template-columns: 1fr;
   }
 
