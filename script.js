@@ -1,3 +1,15 @@
+/*
+ * script.js — 知行成长笔记 全站脚本
+ * ==================================
+ * 运行方式：页面加载后执行 boot()，各 render 函数按需查找 DOM 元素，
+ * 如果当前页不包含对应容器则静默跳过。
+ * 数据流：内嵌数据 → createCard() → renderCards() → DOM
+ */
+
+/* ================================================================
+   1. 数据源 — 文章 / 项目 / 计划 / 默认留言
+   ================================================================ */
+
 const articleCatalog = [
   {
     title: "从单页主页到课程设计完整站点",
@@ -127,8 +139,13 @@ const defaultMessages = [
   },
 ];
 
+/* ================================================================
+   2. 工具函数 — 路径解析
+   ================================================================ */
+
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+// 根据 <body data-root> 拼接正确路径，支持子目录页面和外部链接
 function resolvePath(target) {
   if (/^https?:/i.test(target)) {
     return target;
@@ -141,6 +158,10 @@ function resolvePath(target) {
 
   return `${root}/${target}`;
 }
+
+/* ================================================================
+   3. 实时时钟
+   ================================================================ */
 
 function renderClock() {
   const clock = document.getElementById("siteClock");
@@ -160,6 +181,10 @@ function initClock() {
   window.setInterval(renderClock, 1000);
 }
 
+/* ================================================================
+   4. 返回顶部按钮
+   ================================================================ */
+
 function initBackToTop() {
   const button = document.getElementById("backToTop");
   if (!button) {
@@ -178,6 +203,10 @@ function initBackToTop() {
   toggle();
 }
 
+/* ================================================================
+   5. 导航高亮 — 根据 body[data-page] 标记当前页
+   ================================================================ */
+
 function markCurrentPage() {
   const currentPage = document.body.dataset.page;
   if (!currentPage) {
@@ -189,6 +218,11 @@ function markCurrentPage() {
   });
 }
 
+/* ================================================================
+   6. 文章/项目卡片渲染 — 封面图映射 + HTML 生成
+   ================================================================ */
+
+// 根据文章分类映射封面图片，未匹配到则用索引轮换
 function buildArticleCover(article, index) {
   const categoryMap = {
     '课程设计': 'images/cover1.png',
@@ -234,6 +268,7 @@ function createCard(item, index) {
   `;
 }
 
+// 通用列表渲染：向指定容器 ID 列表注入卡片 HTML
 function renderCards(containerIds, catalog) {
   containerIds.forEach(function (id) {
     const container = document.getElementById(id);
@@ -247,6 +282,10 @@ function countValues(values) {
     return counts;
   }, new Map());
 }
+
+/* ================================================================
+   7. 首页侧边栏 — 文章列表 / 分类 / 标签 / 时间轴
+   ================================================================ */
 
 function renderSidebarDirectory() {
   const articleList = document.getElementById("sidebarArticleList");
@@ -299,6 +338,10 @@ function renderSidebarDirectory() {
   }
 }
 
+/* ================================================================
+   8. 侧边栏 Tab 切换 — 文章 / 分类 / 标签 / 时间轴
+   ================================================================ */
+
 function initSidebarTabs() {
   const tabs = Array.from(document.querySelectorAll("[data-sidebar-tab]"));
   const panels = Array.from(document.querySelectorAll("[data-sidebar-panel]"));
@@ -326,6 +369,10 @@ function initSidebarTabs() {
   });
 }
 
+/* ================================================================
+   9. 学习计划表格
+   ================================================================ */
+
 function renderScheduleTable() {
   const tbody = document.getElementById("scheduleTableBody");
   if (!tbody) {
@@ -352,6 +399,10 @@ function renderScheduleTable() {
     })
     .join("");
 }
+
+/* ================================================================
+   10. Hero 轮播 — 自动切换（4.2s）+ 手动上一张/下一张/指示器
+   ================================================================ */
 
 function initCarousel() {
   const root = document.getElementById("heroCarousel");
@@ -411,6 +462,10 @@ function initCarousel() {
   restart();
 }
 
+/* ================================================================
+   11. 留言板 — sessionStorage 读写（刷新保留，关闭标签页清除）
+   ================================================================ */
+
 function readMessages() {
   try {
     const raw = window.sessionStorage.getItem("courseMessages");
@@ -450,6 +505,10 @@ function renderMessages() {
     )
     .join("");
 }
+
+/* ================================================================
+   12. 表单验证 — 设置页 + 留言页
+   ================================================================ */
 
 function setError(form, fieldName, message) {
   const node = form.querySelector(`[data-error-for="${fieldName}"]`);
@@ -554,6 +613,11 @@ function initForms() {
     });
   });
 }
+
+/* ================================================================
+   13. 启动入口 — DOMContentLoaded 后执行
+   各函数内部自行判断当前页是否存在对应容器，不存在则跳过
+   ================================================================ */
 
 function boot() {
   markCurrentPage();
