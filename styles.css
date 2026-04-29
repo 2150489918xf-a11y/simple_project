@@ -32,22 +32,6 @@ body {
 
 a { color: inherit; text-decoration: none; }
 
-/* === 图标（纯CSS伪FontAwesome） === */
-.fas, .far, .fab {
-  display: inline-flex;
-  width: 1.15em; min-width: 1.15em; height: 1.15em;
-  align-items: center; justify-content: center;
-  font-style: normal; font-weight: 800; line-height: 1; vertical-align: -0.1em;
-}
-.fas::before, .far::before, .fab::before { display: block; font-size: 0.95em; }
-.fa-home::before { content: "⌂"; }
-.fa-book::before { content: "▤"; }
-.fa-laptop-code::before { content: "</>"; font-size: 0.62em; }
-.fa-graduation-cap::before { content: "◇"; }
-.fa-cog::before { content: "⚙"; }
-.fa-sign-in-alt::before { content: "↪"; }
-.fa-user-plus::before { content: "+"; }
-
 button, input, select, textarea { font: inherit; }
 img, svg { display: block; max-width: 100%; }
 
@@ -58,14 +42,11 @@ img, svg { display: block; max-width: 100%; }
 
 .shell { width: var(--shell); margin: 0 auto; }
 
-/* === 背景动画（精简为3个形状） === */
+/* === 背景 === */
 .bg-animated {
   position: fixed; inset: 0; z-index: -3; overflow: hidden; pointer-events: none;
-  background:
-    radial-gradient(circle at 12% 22%, rgba(255,255,255,0.34), transparent 22%),
-    radial-gradient(circle at 82% 74%, rgba(184,159,218,0.36), transparent 30%),
-    linear-gradient(110deg, var(--bg-gradient-start), var(--bg-gradient-cyan) 42%, var(--bg-gradient-lavender));
-  background-size: 100% 100%, 100% 100%, 300% 300%;
+  background: linear-gradient(110deg, var(--bg-gradient-start), var(--bg-gradient-cyan) 42%, var(--bg-gradient-lavender));
+  background-size: 300% 300%;
   animation: gradientShift 15s ease-in-out infinite;
 }
 
@@ -73,24 +54,6 @@ img, svg { display: block; max-width: 100%; }
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
-}
-
-.shape {
-  position: fixed; z-index: -2; pointer-events: none; opacity: 0.28;
-  animation: floatDrift 36s ease-in-out infinite alternate;
-}
-.shape1 { width: 360px; height: 360px; top: 9%; left: 4%; border-radius: 50%; background: rgba(73,84,230,0.22); }
-.shape2 { width: 220px; height: 220px; top: 61%; right: 4%; border-radius: 44px; background: rgba(73,84,230,0.45); transform: rotate(28deg); animation-name: rotateDrift; animation-duration: 35s; }
-.shape3 { width: 180px; height: 180px; top: 28%; right: 13%; border-radius: 50%; background: rgba(238,103,92,0.2); animation-duration: 44s; }
-
-@keyframes floatDrift {
-  0%   { transform: translate3d(0,0,0) scale(1); }
-  50%  { transform: translate3d(32px,-28px,0) scale(1.04); }
-  100% { transform: translate3d(78px,-62px,0) scale(0.98); }
-}
-@keyframes rotateDrift {
-  0%   { transform: translate3d(0,0,0) rotate(28deg); }
-  100% { transform: translate3d(-70px,52px,0) rotate(388deg); }
 }
 
 /* === 顶部导航 === */
@@ -310,13 +273,6 @@ img, svg { display: block; max-width: 100%; }
 }
 .article-card:nth-child(even) { flex-direction: row-reverse; }
 .article-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
-
-.article-sticky {
-  position: absolute; top: 15px; right: -25px;
-  background: var(--accent-gold); color: #fff;
-  font-size: 0.8rem; padding: 3px 25px; transform: rotate(45deg); z-index: 10;
-}
-.article-card:nth-child(even) .article-sticky { left: -25px; right: auto; transform: rotate(-45deg); }
 
 .article-cover { width: 45%; height: 100%; overflow: hidden; }
 .article-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
@@ -698,13 +654,6 @@ tbody td { padding: 16px; border-top: 1px solid rgba(171,176,210,0.26); color: v
 .field input:focus, .field textarea:focus, .field select:focus {
   outline: 2px solid rgba(91,98,232,0.24); border-color: rgba(91,98,232,0.42);
 }
-
-.button {
-  display: inline-flex; align-items: center; justify-content: center;
-  min-height: 48px; padding: 0 24px; border: 0; border-radius: 999px;
-  font-weight: 700; cursor: pointer;
-}
-.button-primary { background: linear-gradient(135deg, var(--accent), #ff7a68); color: #fff; box-shadow: var(--shadow); }
 
 /* 关于页个人资料卡 */
 .profile-banner {

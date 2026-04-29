@@ -18,15 +18,6 @@ const articleCatalog = [
     tags: ["HTML", "CSS", "JavaScript"],
   },
   {
-    title: "智能体的设计范式",
-    category: "AI 研究",
-    date: "2026-04-21",
-    summary: "探讨从单步提示到自主智能体架构的演进，分析 ReAct、AutoGPT 等设计模式在实际项目中的落地。",
-    path: "pages/articles/agent-paradigm.html",
-    readTime: "阅读 12 分钟",
-    tags: ["AI Agent", "设计模式", "大模型"],
-  },
-  {
     title: "仿 Cactus 博客布局的两栏实现",
     category: "布局实验",
     date: "2026-04-18",
@@ -35,12 +26,11 @@ const articleCatalog = [
     readTime: "阅读 7 分钟",
     tags: ["CSS Grid", "Sticky", "响应式"],
   },
-  
   {
     title: "学习计划表格页的可读性优化",
     category: "数据展示",
     date: "2026-04-12",
-    summary: "用状态标签、行间距和响应式容器，让学习计划表既满足课程要求，也方便在窄屏设备阅读。",
+    summary: "用状态标签、行间距和响应式容器，让学习计划表既满足课程要求，也方便阅读。",
     path: "pages/data/schedule.html",
     readTime: "阅读 4 分钟",
     tags: ["表格", "可读性", "课程安排"],
@@ -62,42 +52,6 @@ const articleCatalog = [
     path: "pages/projects/index.html",
     readTime: "阅读 6 分钟",
     tags: ["项目", "卡片", "信息架构"],
-  },
-  {
-    title: "JavaSE 核心特性深度解析",
-    category: "后端开发",
-    date: "2026-04-28",
-    summary: "从集合框架底层原理到多线程并发控制，系统性梳理 JavaSE 在大型项目开发中的核心技术要点。",
-    path: "pages/articles/javase-core.html",
-    readTime: "阅读 15 分钟",
-    tags: ["Java", "并发编程", "JVM"],
-  },
-  {
-    title: "LangChain 实战：构建 LLM 应用",
-    category: "AI 开发",
-    date: "2026-04-28",
-    summary: "解析 LangChain 的六大核心模块，展示如何通过 Chain 和 Memory 快速搭建具有上下文感知能力的 AI 应用。",
-    path: "pages/articles/langchain-action.html",
-    readTime: "阅读 10 分钟",
-    tags: ["LangChain", "LLM", "Python"],
-  },
-  {
-    title: "LangGraph：控制智能体的循环逻辑",
-    category: "AI 研究",
-    date: "2026-04-28",
-    summary: "探讨如何利用 LangGraph 的状态图结构解决 LangChain 在复杂决策流中的局限性，实现高度可控的循环对话。",
-    path: "pages/articles/langgraph-flow.html",
-    readTime: "阅读 12 分钟",
-    tags: ["LangGraph", "智能体", "状态机"],
-  },
-  {
-    title: "RAG 架构进阶与向量数据库实践",
-    category: "AI 研究",
-    date: "2026-04-28",
-    summary: "深入讨论检索增强生成（RAG）的优化路径，包括 Query Transformation、Rerank 机制及向量数据库的选型对比。",
-    path: "pages/articles/rag-advanced.html",
-    readTime: "阅读 18 分钟",
-    tags: ["RAG", "向量数据库", "信息检索"],
   },
 ];
 
@@ -233,39 +187,6 @@ function initClock() {
   window.setInterval(renderClock, 1000);
 }
 
-function initDropdowns() {
-  const dropdowns = document.querySelectorAll("[data-nav-dropdown]");
-
-  dropdowns.forEach((dropdown) => {
-    const button = dropdown.querySelector("[data-dropdown-button]");
-    if (!button) {
-      return;
-    }
-
-    button.addEventListener("click", () => {
-      const willOpen = !dropdown.classList.contains("is-open");
-      dropdowns.forEach((item) => {
-        item.classList.remove("is-open");
-        item.querySelector("[data-dropdown-button]")?.setAttribute("aria-expanded", "false");
-      });
-
-      if (willOpen) {
-        dropdown.classList.add("is-open");
-        button.setAttribute("aria-expanded", "true");
-      }
-    });
-  });
-
-  document.addEventListener("click", (event) => {
-    dropdowns.forEach((dropdown) => {
-      if (!dropdown.contains(event.target)) {
-        dropdown.classList.remove("is-open");
-        dropdown.querySelector("[data-dropdown-button]")?.setAttribute("aria-expanded", "false");
-      }
-    });
-  });
-}
-
 function initBackToTop() {
   const button = document.getElementById("backToTop");
   if (!button) {
@@ -315,83 +236,41 @@ function buildArticleCover(article, index) {
   return resolvePath(`images/cover${coverNum}.png`);
 }
 
-function createArticleCard(article, index) {
-  const isSticky = index === 0; // 假设第一篇文章是置顶的
-  const stickyHtml = isSticky ? `<div class="article-sticky"><i class="fas fa-thumbtack"></i> 置顶</div>` : '';
-  const tagHtml = article.tags
-    ? `<div class="article-tags">${article.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>`
+function createCard(item, index) {
+  const tagHtml = item.tags
+    ? `<div class="article-tags">${item.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>`
     : "";
-  
-  const imgUrl = buildArticleCover(article, index);
-  
+  const imgUrl = buildArticleCover(item, index);
+
   return `
     <article class="article-card butterfly-article">
-      ${stickyHtml}
       <div class="article-cover">
-        <img src="${imgUrl}" alt="article cover">
+        <img src="${imgUrl}" alt="cover">
       </div>
       <div class="article-info">
-        <h3><a href="${resolvePath(article.path)}">${article.title}</a></h3>
+        <h3><a href="${resolvePath(item.path)}">${item.title}</a></h3>
         <div class="article-meta">
-          <span><i class="far fa-calendar-alt"></i> ${article.date}</span>
-          <span><i class="fas fa-inbox"></i> ${article.category}</span>
-          <span><i class="fas fa-clock"></i> ${article.readTime}</span>
+          <span><i class="far fa-calendar-alt"></i> ${item.date}</span>
+          <span><i class="fas fa-inbox"></i> ${item.category}</span>
+          <span><i class="fas fa-clock"></i> ${item.readTime}</span>
         </div>
-        <p class="article-summary">${article.summary}</p>
+        <p class="article-summary">${item.summary}</p>
         ${tagHtml}
       </div>
     </article>
   `;
 }
 
-function renderHomeArticles() {
-  const container = document.getElementById("articleList");
-  if (container) {
-    container.innerHTML = articleCatalog.map(createArticleCard).join("");
-  }
+function renderCards(containerIds, catalog) {
+  containerIds.forEach(function (id) {
+    const container = document.getElementById(id);
+    if (container) container.innerHTML = catalog.map(createCard).join("");
+  });
 }
 
-function renderArticleCatalog() {
-  const container = document.getElementById("articleCatalogList");
-  if (!container) return;
-  
-  // 直接渲染全部笔记
-  container.innerHTML = articleCatalog.map(createArticleCard).join("");
-}
-
-function createProjectCard(project, index) {
-  const tagHtml = project.tags
-    ? `<div class="article-tags">${project.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>`
-    : "";
-
-  const imgUrl = buildArticleCover(index);
-
-  return `
-    <article class="article-card butterfly-article">
-      <div class="article-cover">
-        <img src="${imgUrl}" alt="project cover">
-      </div>
-      <div class="article-info">
-        <h3><a href="${resolvePath(project.path)}">${project.title}</a></h3>
-        <div class="article-meta">
-          <span><i class="far fa-calendar-alt"></i> ${project.date}</span>
-          <span><i class="fas fa-inbox"></i> ${project.category}</span>
-          <span><i class="fas fa-clock"></i> ${project.readTime}</span>
-        </div>
-        <p class="article-summary">${project.summary}</p>
-        ${tagHtml}
-      </div>
-    </article>
-  `;
-}
-
-function renderProjectCards() {
-  // 实战教程页全量列表
-  const pageGrid = document.getElementById("projectList") || document.getElementById("projectCatalogGrid");
-  if (pageGrid) {
-    pageGrid.innerHTML = projectCatalog.map(createProjectCard).join("");
-  }
-}
+function renderHomeArticles() { renderCards(["articleList"], articleCatalog); }
+function renderArticleCatalog() { renderCards(["articleCatalogList"], articleCatalog); }
+function renderProjectCards() { renderCards(["projectList", "projectCatalogGrid"], projectCatalog); }
 
 function renderFriendLinks() {
   const container = document.getElementById("friendLinks");
@@ -751,108 +630,20 @@ function initForms() {
   });
 }
 
-function initCursorEffects() {
-  const canvas = document.createElement('canvas');
-  canvas.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:999999999;width:100vw;height:100vh;';
-  document.body.appendChild(canvas);
-  
-  const ctx = canvas.getContext('2d');
-  const particles = [];
-  let w = window.innerWidth;
-  let h = window.innerHeight;
-
-  canvas.width = w;
-  canvas.height = h;
-  
-  window.addEventListener('resize', () => {
-    w = window.innerWidth;
-    h = window.innerHeight;
-    canvas.width = w;
-    canvas.height = h;
-  });
-  
-  const colors = ['#49b1f5', '#ff7242', '#00c4b6', '#f6d563', '#ff6b81'];
-  
-  function createParticles(x, y) {
-    const particleCount = 15;
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: x,
-        y: y,
-        vx: (Math.random() - 0.5) * 10,
-        vy: (Math.random() - 0.5) * 10,
-        size: Math.random() * 3 + 2,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        life: 1,
-        decay: Math.random() * 0.02 + 0.015
-      });
-    }
-  }
-  
-  function render() {
-    ctx.clearRect(0, 0, w, h);
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.15; // 重力效果
-      p.life -= p.decay;
-      p.size = Math.max(0, p.size - 0.05);
-      
-      if (p.life <= 0) {
-        particles.splice(i, 1);
-        i--;
-        continue;
-      }
-      
-      ctx.beginPath();
-      // 绘制五角星或圆形，这里为了性能和简洁绘制圆形小碎块
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.globalAlpha = p.life;
-      ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(render);
-  }
-  
-  document.addEventListener('click', (e) => {
-    createParticles(e.clientX, e.clientY);
-  });
-  
-  render();
-}
-
 function initAmbientBackground() {
   let background = document.querySelector(".bg-animated");
-
   if (!background) {
     background = document.createElement("div");
     background.className = "bg-animated";
     document.body.prepend(background);
   }
-
   background.setAttribute("aria-hidden", "true");
-
-  for (let index = 1; index <= 3; index++) {
-    const className = `shape${index}`;
-    let shape = document.querySelector(`.${className}`);
-
-    if (!shape) {
-      shape = document.createElement("div");
-      shape.className = `shape ${className}`;
-      document.body.insertBefore(shape, background.nextSibling);
-    }
-
-    shape.setAttribute("aria-hidden", "true");
-  }
 }
 
 function boot() {
   initAmbientBackground();
   markCurrentPage();
   initClock();
-  initDropdowns();
   initBackToTop();
   renderHomeArticles();
   renderArticleCatalog();
@@ -864,7 +655,6 @@ function boot() {
   initCarousel();
   initSidebarTabs();
   initForms();
-  initCursorEffects();
 }
 
 document.addEventListener("DOMContentLoaded", boot);
