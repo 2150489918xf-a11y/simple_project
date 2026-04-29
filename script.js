@@ -401,65 +401,40 @@ function renderScheduleTable() {
 }
 
 /* ================================================================
-   10. Hero 轮播 — 自动切换（4.2s）+ 手动上一张/下一张/指示器
+   10. Hero 轮播 — 事件委托 + 自动切换（4.2s），尊重 prefers-reduced-motion
    ================================================================ */
 
 function initCarousel() {
   const root = document.getElementById("heroCarousel");
-  if (!root) {
-    return;
-  }
+  if (!root) return;
 
   const slides = Array.from(root.querySelectorAll("[data-slide]"));
   const dots = Array.from(root.querySelectorAll("[data-carousel-dot]"));
-  let activeIndex = 0;
-  let timerId = null;
+  let index = 0;
+  let timer = null;
 
-  const sync = () => {
-    slides.forEach((slide, index) => {
-      slide.classList.toggle("is-active", index === activeIndex);
-    });
-    dots.forEach((dot, index) => {
-      dot.classList.toggle("is-active", index === activeIndex);
-    });
+  const goTo = (n) => {
+    index = (n + slides.length) % slides.length;
+    slides.forEach((s, i) => s.classList.toggle("is-active", i === index));
+    dots.forEach((d, i) => d.classList.toggle("is-active", i === index));
   };
 
-  const goTo = (index) => {
-    activeIndex = (index + slides.length) % slides.length;
-    sync();
-  };
-
-  const restart = () => {
-    if (timerId) {
-      window.clearInterval(timerId);
-    }
-
+  const tick = () => {
+    clearInterval(timer);
     if (!prefersReducedMotion.matches) {
-      timerId = window.setInterval(() => {
-        goTo(activeIndex + 1);
-      }, 4200);
+      timer = setInterval(() => goTo(index + 1), 4200);
     }
   };
 
-  root.querySelector("[data-carousel-prev]")?.addEventListener("click", () => {
-    goTo(activeIndex - 1);
-    restart();
+  root.addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    if ("carouselPrev" in btn.dataset) { goTo(index - 1); tick(); }
+    if ("carouselNext" in btn.dataset) { goTo(index + 1); tick(); }
+    if ("carouselDot" in btn.dataset) { goTo(+btn.dataset.carouselDot); tick(); }
   });
 
-  root.querySelector("[data-carousel-next]")?.addEventListener("click", () => {
-    goTo(activeIndex + 1);
-    restart();
-  });
-
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => {
-      goTo(Number(dot.dataset.carouselDot));
-      restart();
-    });
-  });
-
-  sync();
-  restart();
+  tick();
 }
 
 /* ================================================================
